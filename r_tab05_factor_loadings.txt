@@ -1,0 +1,81 @@
+============================================================
+CARGAS FACTORIALES - ANALISIS FACTORIAL (varimax)
+Proyecto: AgroMineral-PCA
+Fecha: 2026-07-07 21:16:27 
+============================================================
+
+Variables utilizadas (4 de 5):
+quartz_pct, micas_pct, plagioclase_pct, mafics_pct 
+Numero de factores: 2
+Rotacion: varimax
+Metodo: ejes principales (pa)
+Nota: other_minerals_pct se excluyo por dependencia lineal.
+
+--- Matriz de Correlacion ---
+                quartz_pct micas_pct plagioclase_pct mafics_pct
+quartz_pct          1.0000   -0.1778         -0.2843    -0.2054
+micas_pct          -0.1778    1.0000         -0.1468    -0.1485
+plagioclase_pct    -0.2843   -0.1468          1.0000    -0.2265
+mafics_pct         -0.2054   -0.1485         -0.2265     1.0000
+
+--- Cargas Factoriales (rotadas) ---
+
+Loadings:
+                PA1    PA2   
+quartz_pct       1.118 -0.143
+micas_pct       -0.139 -0.113
+plagioclase_pct -0.116  0.996
+mafics_pct      -0.188 -0.223
+
+                 PA1   PA2
+SS loadings    1.318 1.074
+Proportion Var 0.329 0.269
+Cumulative Var 0.329 0.598
+
+--- Comunalidades (h2) ---
+        Variable Comunalidad
+      quartz_pct      1.2703
+       micas_pct      0.0321
+ plagioclase_pct      1.0047
+      mafics_pct      0.0849
+
+--- Varianza Explicada ---
+                         PA1    PA2
+SS loadings           1.3180 1.0740
+Proportion Var        0.3295 0.2685
+Cumulative Var        0.3295 0.5980
+Proportion Explained  0.5510 0.4490
+Cumulative Proportion 0.5510 1.0000
+
+--- Estructura del Modelo ---
+Factor Analysis using method =  pa
+Call: fa(r = mat_cor, nfactors = 2, n.obs = nrow(datos_fa), rotate = "varimax", 
+    fm = "pa")
+Standardized loadings (pattern matrix) based upon correlation matrix
+                item   PA1   PA2    h2      u2 com
+quartz_pct         1  1.12 -0.14 1.270 -0.2703 1.0
+micas_pct          2 -0.14 -0.11 0.032  0.9679 1.9
+plagioclase_pct    3 -0.12  1.00 1.005 -0.0047 1.0
+mafics_pct         4 -0.19 -0.22 0.085  0.9151 1.9
+
+                       PA1  PA2
+SS loadings           1.32 1.07
+Proportion Var        0.33 0.27
+Cumulative Var        0.33 0.60
+Proportion Explained  0.55 0.45
+Cumulative Proportion 0.55 1.00
+
+Mean item complexity =  1.5
+Test of the hypothesis that 2 factors are sufficient.
+
+df null model =  6  with the objective function =  0.38 with Chi Square =  757.15
+df of  the model are -1  and the objective function was  0.08 
+
+The root mean square of the residuals (RMSR) is  0.09 
+The df corrected root mean square of the residuals is  NA 
+
+The harmonic n.obs is  2000 with the empirical chi square  182.08  with prob <  NA 
+The total n.obs was  2000  with Likelihood Chi Square =  166.9  with prob <  NA 
+
+Tucker Lewis Index of factoring reliability =  2.342
+Fit based upon off diagonal values = 0.82

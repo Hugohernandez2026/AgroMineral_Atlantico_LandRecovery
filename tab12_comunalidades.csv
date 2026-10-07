@@ -1,0 +1,11 @@
+Variable,Nombre Español,Comunalidad (h²),Varianza Única (1-h²)
+quartz_pct,Cuarzo (%),0.9684,0.0316
+micas_pct,Micas (%),0.9594,0.0406
+plagioclase_pct,Plagioclasa (%),0.9811,0.0189
+mafics_pct,Máficos (%),0.9854,0.0146
+other_minerals_pct,Otros Minerales (%),0.9764,0.0236
+SiO2_pct,SiO₂ (%),0.9329,0.0671
+K2O_pct,K₂O (%),0.9244,0.0756
+CaO_pct,CaO (%),0.9422,0.0578
+MgO_pct,MgO (%),0.9759,0.0241
+P2O5_pct,P₂O₅ (%),0.9741,0.0259

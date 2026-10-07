@@ -1,0 +1,18 @@
+============================================================
+FACTOR DE INFLACION DE VARIANZA (VIF)
+Proyecto: AgroMineral-PCA
+Fecha: 2026-07-07 21:17:36 
+============================================================
+
+Valores VIF por predictor:
+          SiO2_pct            K2O_pct            CaO_pct            MgO_pct 
+            4.9941             7.5784             6.7611             3.9643 
+Granulometria_Mesh 
+            1.0007 
+
+Interpretacion:
+  VIF < 5: Multicolinealidad baja (aceptable)
+  5 <= VIF < 10: Multicolinealidad moderada
+  VIF >= 10: Multicolinealidad alta (problematica)
+
+Conclusión: Multicolinealidad moderada en algunas variables.

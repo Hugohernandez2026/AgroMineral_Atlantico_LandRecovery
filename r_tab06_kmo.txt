@@ -1,0 +1,18 @@
+============================================================
+PRUEBA KMO (KAISER-MEYER-OLKIN)
+Proyecto: AgroMineral-PCA
+Fecha: 2026-07-07 21:17:38 
+============================================================
+
+Variables utilizadas (4 de 5):
+quartz_pct, micas_pct, plagioclase_pct, mafics_pct 
+Nota: other_minerals_pct se excluye porque las 5 variables DRX
+      suman ~100%, creando dependencia lineal.
+
+KMO global: 0.2737 
+
+KMO por variable:
+     quartz_pct       micas_pct plagioclase_pct      mafics_pct 
+         0.2910          0.2315          0.2916          0.2624 
+
+Interpretacion: Inaceptable - No recomendado (esperado en datos composicionales) 

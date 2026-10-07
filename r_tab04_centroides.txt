@@ -1,0 +1,47 @@
+============================================================
+CENTROIDES DE CLUSTERS K-MEANS (k=3)
+Proyecto: AgroMineral-PCA
+Fecha: 2026-07-07 21:12:56 
+============================================================
+
+Variables DRX estandarizadas:
+quartz_pct, micas_pct, plagioclase_pct, mafics_pct, other_minerals_pct 
+
+Tamano de los clusters:
+
+  1   2   3 
+655 653 692 
+
+Silueta promedio: 0.1902 
+
+Silueta promedio por cluster:
+     1      2      3 
+0.1917 0.2148 0.1656 
+
+--- Centroides (en escala estandarizada) ---
+           Variable Cluster_1 Cluster_2 Cluster_3
+         quartz_pct   -0.3712    0.8360   -0.4376
+          micas_pct    0.1185    0.0962   -0.2029
+    plagioclase_pct    1.0109   -0.4127   -0.5674
+         mafics_pct   -0.0962    0.3451   -0.2347
+ other_minerals_pct   -0.6026   -0.6643    1.1973
+
+--- Centroides en escala original ---
+
+Cluster 1 (n=655): Media original:
+        quartz_pct          micas_pct    plagioclase_pct         mafics_pct 
+             19.38              15.32              41.42              18.49 
+other_minerals_pct 
+              5.38 
+
+Cluster 2 (n=653): Media original:
+        quartz_pct          micas_pct    plagioclase_pct         mafics_pct 
+             34.59              15.13              22.72              23.05 
+other_minerals_pct 
+              4.50 
+
+Cluster 3 (n=692): Media original:
+        quartz_pct          micas_pct    plagioclase_pct         mafics_pct 
+             18.55              12.57              20.69              17.06 
+other_minerals_pct 
+             31.13 

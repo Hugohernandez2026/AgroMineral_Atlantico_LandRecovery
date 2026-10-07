@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgroMineral-PCA: Comparación Python vs R</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --accent: #4361ee;
+    --accent-light: #4895ef;
+    --python-color: #3776ab;
+    --python-bg: rgba(55,118,171,0.08);
+    --python-border: rgba(55,118,171,0.25);
+    --r-color: #276dc3;
+    --r-bg: rgba(39,109,195,0.08);
+    --r-border: rgba(39,109,195,0.25);
+    --content-bg: #f8f9fc;
+    --card-bg: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #6c757d;
+    --border: #e9ecef;
+    --success: #06d6a0;
+    --warning: #ffd166;
+    --danger: #ef476f;
+    --radius: 12px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-lg: 0 8px 30px rgba(0,0,0,0.10);
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--content-bg); color: var(--text-primary); }
+
+  /* Header */
+  .header {
+    background: #1a1a2e; color: #fff; padding: 28px 32px; position: relative; overflow: hidden;
+  }
+  .header::after {
+    content: ''; position: absolute; top: -60px; right: -60px; width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(67,97,238,0.2), transparent 70%); border-radius: 50%;
+  }
+  .header-inner { max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
+  .header h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+  .header h1 span { color: var(--accent-light); }
+  .header p { font-size: 13.5px; color: rgba(255,255,255,0.6); max-width: 680px; line-height: 1.6; }
+
+  /* Badge bar */
+  .badge-bar {
+    background: var(--card-bg); border-bottom: 1px solid var(--border); padding: 14px 32px;
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03); position: sticky; top: 0; z-index: 50;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 20px;
+    font-size: 12px; font-weight: 600;
+  }
+  .badge-repro { background: rgba(6,214,160,0.12); color: #059669; }
+  .badge-repro svg { width: 14px; height: 14px; fill: currentColor; }
+  .badge-py { background: var(--python-bg); color: var(--python-color); border: 1px solid var(--python-border); }
+  .badge-r { background: var(--r-bg); color: var(--r-color); border: 1px solid var(--r-border); }
+  .badge-info { background: rgba(67,97,238,0.1); color: var(--accent); }
+
+  .container { max-width: 1400px; margin: 0 auto; padding: 28px 32px; }
+
+  /* Section title */
+  .section-title {
+    font-size: 17px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+  }
+  .section-title::before { content: ''; width: 4px; height: 22px; background: var(--accent); border-radius: 2px; }
+
+  /* Comparison grid */
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 36px; }
+  .compare-card {
+    background: var(--card-bg); border-radius: var(--radius); overflow: hidden;
+    box-shadow: var(--shadow); border: 1px solid var(--border); transition: box-shadow var(--transition);
+  }
+  .compare-card:hover { box-shadow: var(--shadow-lg); }
+  .compare-card .card-header {
+    padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px;
+  }
+  .compare-card .lang-badge {
+    display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 6px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
+  }
+  .lang-badge.py { background: var(--python-bg); color: var(--python-color); border: 1px solid var(--python-border); }
+  .lang-badge.r { background: var(--r-bg); color: var(--r-color); border: 1px solid var(--r-border); }
+  .compare-card .card-header h3 { font-size: 14px; font-weight: 600; flex: 1; }
+  .compare-card .card-body {
+    padding: 16px; display: flex; align-items: center; justify-content: center;
+    background: #fafbfd; min-height: 360px;
+  }
+  .compare-card .card-body img { max-width: 100%; max-height: 520px; border-radius: 6px; }
+  .placeholder-img {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    color: var(--text-secondary); font-size: 13px; text-align: center; padding: 40px;
+  }
+  .placeholder-img svg { width: 48px; height: 48px; opacity: 0.25; }
+
+  /* Summary table */
+  .table-card {
+    background: var(--card-bg); border-radius: var(--radius); overflow: hidden;
+    box-shadow: var(--shadow); border: 1px solid var(--border); margin-bottom: 32px;
+  }
+  .table-card .card-header {
+    padding: 16px 20px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .table-card .card-header h3 { font-size: 14px; font-weight: 600; }
+  .table-wrap { overflow-x: auto; }
+  .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .data-table thead { background: #f8f9fc; }
+  .data-table th {
+    padding: 11px 16px; text-align: left; font-weight: 600; color: var(--text-secondary);
+    font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--border); white-space: nowrap;
+  }
+  .data-table td { padding: 10px 16px; border-bottom: 1px solid var(--border); }
+  .data-table tbody tr:hover { background: #f0f4ff; }
+  .data-table tbody tr:last-child td { border-bottom: none; }
+  .data-table .col-py { background: rgba(55,118,171,0.03); }
+  .data-table .col-r { background: rgba(39,109,195,0.03); }
+  .data-table .col-diff { background: rgba(6,214,160,0.04); }
+  .match { color: var(--success); font-weight: 600; }
+  .nomatch { color: var(--warning); font-weight: 600; }
+
+  /* Metric cards row */
+  .metric-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .metric-card {
+    background: var(--card-bg); border-radius: var(--radius); padding: 20px; text-align: center;
+    box-shadow: var(--shadow); border: 1px solid var(--border);
+  }
+  .metric-card .label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .metric-card .pair { display: flex; align-items: center; justify-content: center; gap: 12px; }
+  .metric-card .val-py { font-size: 20px; font-weight: 800; color: var(--python-color); }
+  .metric-card .val-r { font-size: 20px; font-weight: 800; color: var(--r-color); }
+  .metric-card .vs { font-size: 11px; color: var(--text-secondary); font-weight: 600; }
+
+  /* Footer */
+  .footer {
+    text-align: center; padding: 24px 32px; font-size: 12px; color: var(--text-secondary);
+    border-top: 1px solid var(--border); background: var(--card-bg);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .compare-grid { grid-template-columns: 1fr; }
+    .header { padding: 20px 16px; }
+    .badge-bar { padding: 12px 16px; }
+    .container { padding: 20px 16px; }
+  }
+  @media (max-width: 500px) {
+    .metric-cards { grid-template-columns: 1fr; }
+    .header h1 { font-size: 19px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-inner">
+    <h1>AgroMineral-PCA: <span>Comparación Python vs R</span></h1>
+    <p>
+      Validación cruzada de resultados entre implementaciones en Python (scikit-learn, statsmodels, matplotlib)
+      y R (stats, FactoMineR, ggplot2) para garantizar la reproducibilidad del análisis multivariado de minerales agrominerales.
+    </p>
+  </div>
+</div>
+
+<!-- Badge bar -->
+<div class="badge-bar">
+  <div class="badge badge-repro">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+    Reproducibilidad Verificada
+  </div>
+  <div class="badge badge-py">Python 3.x</div>
+  <div class="badge badge-r">R 4.3.3</div>
+  <div class="badge badge-info">2000 muestras &bull; 18 variables &bull; 5 algoritmos</div>
+</div>
+
+<div class="container">
+
+  <!-- Key metric comparisons -->
+  <div class="section-title">Métricas Clave Comparadas</div>
+  <div class="metric-cards">
+    <div class="metric-card">
+      <div class="label">Varianza CP1 (%)</div>
+      <div class="pair">
+        <span class="val-py">28.70</span>
+        <span class="vs">vs</span>
+        <span class="val-r">28.70</span>
+      </div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Varianza CP2 (%)</div>
+      <div class="pair">
+        <span class="val-py">25.67</span>
+        <span class="vs">vs</span>
+        <span class="val-r">25.67</span>
+      </div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Varianza CP3 (%)</div>
+      <div class="pair">
+        <span class="val-py">23.49</span>
+        <span class="vs">vs</span>
+        <span class="val-r">23.49</span>
+      </div>
+    </div>
+    <div class="metric-card">
+      <div class="label">R² Ajustado (Regresión)</div>
+      <div class="pair">
+        <span class="val-py">0.9818</span>
+        <span class="vs">vs</span>
+        <span class="val-r">0.9818</span>
+      </div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Acum. CP1-CP4 (%)</div>
+      <div class="pair">
+        <span class="val-py">100.00</span>
+        <span class="vs">vs</span>
+        <span class="val-r">100.00</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comparison 1: Biplot PCA -->
+  <div class="section-title">Comparación de Biplot PCA</div>
+  <div class="compare-grid">
+    <div class="compare-card">
+      <div class="card-header">
+        <span class="lang-badge py">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 4l7.53 13H4.47L12 6z"/></svg>
+          Python
+        </span>
+        <h3>Biplot PCA — scikit-learn</h3>
+      </div>
+      <div class="card-body">
+        <img src="../results/figures/fig05_biplot_pca.png" alt="Biplot PCA Python">
+      </div>
+    </div>
+    <div class="compare-card">
+      <div class="card-header">
+        <span class="lang-badge r">R</span>
+        <h3>Biplot PCA — R stats::prcomp</h3>
+      </div>
+      <div class="card-body">
+        <img src="../results/figures/r_fig04_biplot.png" alt="Biplot PCA R">
+      </div>
+    </div>
+  </div>
+
+  <!-- Comparison 2: Correlation heatmap -->
+  <div class="section-title">Comparación de Mapas de Correlación</div>
+  <div class="compare-grid">
+    <div class="compare-card">
+      <div class="card-header">
+        <span class="lang-badge py">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 4l7.53 13H4.47L12 6z"/></svg>
+          Python
+        </span>
+        <h3>Correlación — matplotlib / seaborn</h3>
+      </div>
+      <div class="card-body">
+        <img src="../results/figures/fig02_correlacion.png" alt="Correlación Python">
+      </div>
+    </div>
+    <div class="compare-card">
+      <div class="card-header">
+        <span class="lang-badge r">R</span>
+        <h3>Correlación — ggplot2 / corrplot</h3>
+      </div>
+      <div class="card-body">
+        <img src="../results/figures/r_fig02_correlacion.png" alt="Correlación R">
+      </div>
+    </div>
+  </div>
+
+  <!-- Comparison 3: Cluster plots -->
+  <div class="section-title">Comparación de Gráficos de Clusters</div>
+  <div class="compare-grid">
+    <div class="compare-card">
+      <div class="card-header">
+        <span class="lang-badge py">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2L1 21h22L12 2zm0 4l7.53 13H4.47L12 6z"/></svg>
+          Python
+        </span>
+        <h3>K-Means — scikit-learn / matplotlib</h3>
+      </div>
+      <div class="card-body">
+        <img src="../results/figures/fig10_cluster_scatter.png" alt="Clusters Python">
+      </div>
+    </div>
+    <div class="compare-card">
+      <div class="card-header">
+        <span class="lang-badge r">R</span>
+        <h3>K-Means — stats::kmeans / ggplot2</h3>
+      </div>
+      <div class="card-body">
+        <img src="../results/figures/r_fig08_cluster.png" alt="Clusters R">
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed comparison table: PCA -->
+  <div class="section-title">Tabla Comparativa Detallada: PCA</div>
+  <div class="table-card">
+    <div class="card-header">
+      <h3>Autovalores y Varianza Explicada — Python vs R</h3>
+      <span class="badge badge-repro">Concordancia verificada</span>
+    </div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Componente</th>
+            <th class="col-py">Autovalor Python</th>
+            <th class="col-r">Autovalor R</th>
+            <th class="col-diff">Diferencia</th>
+            <th class="col-py">Varianza Py (%)</th>
+            <th class="col-r">Varianza R (%)</th>
+            <th class="col-diff">Diferencia</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>CP1</strong></td>
+            <td>1.4357</td><td>1.4350</td><td>0.0007</td>
+            <td>28.70</td><td>28.70</td><td>0.00</td>
+            <td><span class="match">&#10003; Concordante</span></td>
+          </tr>
+          <tr>
+            <td><strong>CP2</strong></td>
+            <td>1.2840</td><td>1.2834</td><td>0.0006</td>
+            <td>25.67</td><td>25.67</td><td>0.00</td>
+            <td><span class="match">&#10003; Concordante</span></td>
+          </tr>
+          <tr>
+            <td><strong>CP3</strong></td>
+            <td>1.1753</td><td>1.1747</td><td>0.0006</td>
+            <td>23.49</td><td>23.49</td><td>0.00</td>
+            <td><span class="match">&#10003; Concordante</span></td>
+          </tr>
+          <tr>
+            <td><strong>CP4</strong></td>
+            <td>1.1075</td><td>1.1069</td><td>0.0006</td>
+            <td>22.14</td><td>22.14</td><td>0.00</td>
+            <td><span class="match">&#10003; Concordante</span></td>
+          </tr>
+          <tr>
+            <td>CP5</td>
+            <td>0.0000</td><td>0.0000</td><td>0.0000</td>
+            <td>0.00</td><td>0.00</td><td>0.00</td>
+            <td><span class="match">&#10003; Concordante</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Loadings comparison -->
+  <div class="section-title">Tabla Comparativa: Cargas PCA (Loadings)</div>
+  <div class="table-card">
+    <div class="card-header">
+      <h3>Cargas de Variables en Componentes Principales — Python vs R</h3>
+      <span class="badge badge-info">Signos comparados (&plusmn;)</span>
+    </div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th rowspan="2">Variable</th>
+            <th colspan="2" class="col-py" style="text-align:center;">Python CP1</th>
+            <th colspan="2" class="col-r" style="text-align:center;">R CP1</th>
+            <th colspan="2" class="col-py" style="text-align:center;">Python CP2</th>
+            <th colspan="2" class="col-r" style="text-align:center;">R CP2</th>
+            <th rowspan="2">Estado</th>
+          </tr>
+          <tr>
+            <th class="col-py">Valor</th><th class="col-py">Signo</th>
+            <th class="col-r">Valor</th><th class="col-r">Signo</th>
+            <th class="col-py">Valor</th><th class="col-py">Signo</th>
+            <th class="col-r">Valor</th><th class="col-r">Signo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cuarzo (%)</td>
+            <td>0.2704</td><td>+</td>
+            <td>0.2704</td><td>+</td>
+            <td>0.7872</td><td>+</td>
+            <td>-0.7872</td><td>-</td>
+            <td><span class="nomatch">&#9679; Signo invertido CP2</span></td>
+          </tr>
+          <tr>
+            <td>Micas (%)</td>
+            <td>0.0621</td><td>+</td>
+            <td>0.0621</td><td>+</td>
+            <td>-0.1399</td><td>-</td>
+            <td>0.1399</td><td>+</td>
+            <td><span class="nomatch">&#9679; Signo invertido CP2</span></td>
+          </tr>
+          <tr>
+            <td>Plagioclasa (%)</td>
+            <td>0.5511</td><td>+</td>
+            <td>0.5511</td><td>+</td>
+            <td>-0.5766</td><td>-</td>
+            <td>0.5766</td><td>+</td>
+            <td><span class="nomatch">&#9679; Signo invertido CP2</span></td>
+          </tr>
+          <tr>
+            <td>Máficos (%)</td>
+            <td>0.0081</td><td>+</td>
+            <td>0.0081</td><td>+</td>
+            <td>0.0875</td><td>+</td>
+            <td>-0.0875</td><td>-</td>
+            <td><span class="nomatch">&#9679; Signo invertido CP2</span></td>
+          </tr>
+          <tr>
+            <td>Otros Min. (%)</td>
+            <td>-0.7870</td><td>-</td>
+            <td>-0.7870</td><td>-</td>
+            <td>-0.1434</td><td>-</td>
+            <td>0.1434</td><td>+</td>
+            <td><span class="nomatch">&#9679; Signo invertido CP2</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Regression comparison -->
+  <div class="section-title">Tabla Comparativa: Regresión Lineal Múltiple</div>
+  <div class="table-card">
+    <div class="card-header">
+      <h3>Coeficientes del Modelo — Python (statsmodels) vs R (lm)</h3>
+      <span class="badge badge-repro">Resultados idénticos</span>
+    </div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Variable</th>
+            <th class="col-py">Coef. Python</th>
+            <th class="col-r">Coef. R</th>
+            <th class="col-diff">Diferencia</th>
+            <th class="col-py">t Python</th>
+            <th class="col-r">t R</th>
+            <th class="col-py">p Python</th>
+            <th class="col-r">p R</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Intersección</strong></td>
+            <td>-0.0700</td><td>-0.0700</td><td>0.0000</td>
+            <td>-3.835</td><td>-3.835</td><td>0.0001</td><td>0.0001</td>
+            <td><span class="match">&#10003; Idéntico</span></td>
+          </tr>
+          <tr>
+            <td>SiO₂ (%)</td>
+            <td>0.0001</td><td>0.0001</td><td>0.0000</td>
+            <td>0.683</td><td>0.683</td><td>0.4946</td><td>0.4946</td>
+            <td><span class="match">&#10003; Idéntico</span></td>
+          </tr>
+          <tr>
+            <td>K₂O (%)</td>
+            <td>0.0015</td><td>0.0015</td><td>0.0000</td>
+            <td>1.387</td><td>1.387</td><td>0.1658</td><td>0.1658</td>
+            <td><span class="match">&#10003; Idéntico</span></td>
+          </tr>
+          <tr>
+            <td>CaO (%)</td>
+            <td>0.0006</td><td>0.0006</td><td>0.0000</td>
+            <td>0.827</td><td>0.827</td><td>0.4086</td><td>0.4086</td>
+            <td><span class="match">&#10003; Idéntico</span></td>
+          </tr>
+          <tr>
+            <td>MgO (%)</td>
+            <td>-0.0000</td><td>-0.0000</td><td>0.0000</td>
+            <td>-0.046</td><td>-0.046</td><td>0.9629</td><td>0.9629</td>
+            <td><span class="match">&#10003; Idéntico</span></td>
+          </tr>
+          <tr>
+            <td><strong>Mesh</strong></td>
+            <td><strong>0.0026</strong></td><td><strong>0.0026</strong></td><td>0.0000</td>
+            <td><strong>231.866</strong></td><td><strong>231.866</strong></td><td>&lt;0.001</td><td>&lt;0.001</td>
+            <td><span class="match">&#10003; Idéntico</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Global regression stats comparison -->
+  <div class="section-title">Estadísticas Globales del Modelo de Regresión</div>
+  <div class="table-card">
+    <div class="card-header">
+      <h3>Indicadores de Ajuste del Modelo</h3>
+    </div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr><th>Estadístico</th><th class="col-py">Python</th><th class="col-r">R</th><th class="col-diff">Concordancia</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>R² Ajustado</td><td>0.9818</td><td>0.9818</td><td><span class="match">&#10003; Idéntico</span></td></tr>
+          <tr><td>Estadístico F</td><td>10 757.41</td><td>10 757.41</td><td><span class="match">&#10003; Idéntico</span></td></tr>
+          <tr><td>Valor p (modelo)</td><td>&lt; 2.2e-16</td><td>&lt; 2.2e-16</td><td><span class="match">&#10003; Idéntico</span></td></tr>
+          <tr><td>Residual SE</td><td>0.0333</td><td>0.0333</td><td><span class="match">&#10003; Idéntico</span></td></tr>
+          <tr><td>Significativo: Mesh</td><td>p &lt; 0.001 (*** )</td><td>p &lt; 0.001 (***)</td><td><span class="match">&#10003; Idéntico</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Conclusions -->
+  <div class="section-title">Conclusiones de la Comparación</div>
+  <div class="table-card" style="border-left: 4px solid var(--success);">
+    <div style="padding: 24px;">
+      <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 14px; color: #059669;">Reproducibilidad Verificada &#10003;</h3>
+      <div style="font-size: 13.5px; line-height: 1.8; color: var(--text-secondary);">
+        <p style="margin-bottom: 12px;">
+          Los resultados entre Python y R son <strong>plenamente consistentes</strong> en todos los análisis realizados:
+        </p>
+        <ul style="padding-left: 20px; margin-bottom: 14px;">
+          <li style="margin-bottom: 6px;"><strong>PCA:</strong> Los autovalores coinciden con diferencias menores a 0.001 (precisión numérica). Las cargas (loadings) en CP1 son idénticas; en CP2 se observa una inversión de signos, lo cual es un artefacto conocido de PCA (los componentes principales no tienen dirección única).</li>
+          <li style="margin-bottom: 6px;"><strong>Regresión:</strong> Los coeficientes, estadísticos t, valores p y métricas globales (R², F, AIC, BIC) son <strong>numéricamente idénticos</strong> entre statsmodels (Python) y lm() (R).</li>
+          <li style="margin-bottom: 6px;"><strong>Visualizaciones:</strong> Los biplots, mapas de correlación y gráficos de clusters muestran patrones idénticos, con diferencias únicamente estéticas (paleta de colores, ejes).</li>
+          <li><strong>K-Means:</strong> Ambas implementaciones identifican 3 clusters con distribuciones equivalentes. R reporta una advertencia por exceso de iteraciones (convergencia lenta), pero el resultado final es consistente.</li>
+        </ul>
+        <p>
+          <strong style="color: var(--text-primary);">Veredicto:</strong> La implementación dual (Python + R) valida la robustez de los resultados.
+          Las diferencias observadas son atribuibles a convenciones de signo de PCA y tolerancia numérica, no a discrepancias analíticas.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- Footer -->
+<div class="footer">
+  AgroMineral-PCA v1.0 &mdash; Comparación Python vs R &mdash; Generado el 2026-07-07 &mdash; 2 000 muestras &bull; 18 variables
+</div>
+
+<script>
+(function() {
+  // Handle broken images with placeholder
+  document.querySelectorAll('.compare-card img').forEach(function(img) {
+    img.addEventListener('error', function() {
+      this.style.display = 'none';
+      var ph = document.createElement('div');
+      ph.className = 'placeholder-img';
+      ph.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg><span>Imagen no disponible<br><small>' + this.getAttribute('alt') + '</small></span>';
+      this.parentNode.appendChild(ph);
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,294 @@
+
+============================================================
+REGISTRO DE EJECUCION - AGROMINERAL PCA (R)
+Fecha de inicio: 2026-07-07 21:17:34
+Directorio de trabajo: /home/z/my-project/download/AgroMineral-PCA
+Version de R: R version 4.3.3 (2024-02-29)
+============================================================
+
+------------------------------------------------------------
+SCRIPT 1: Analisis Exploratorio de Datos (AED)
+Archivo: scripts/r/01_analisis_exploratorio.R
+Inicio: 2026-07-07 21:17:34
+
+--- Salida del script ---
+=== CARGANDO DATOS ===
+Dimensiones del conjunto de datos: 2000 muestras x 18 variables
+
+=== ESTRUCTURA (str) ===
+'data.frame':	2000 obs. of  18 variables:
+ $ sample_id         : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ data_origin       : chr  "real" "real" "real" "real" ...
+ $ mesh              : int  200 325 325 200 100 100 100 325 200 325 ...
+ $ mesh_325          : int  0 1 1 0 0 0 0 1 0 1 ...
+ $ quartz_pct        : num  13.2 12.6 21.6 30.5 30.5 ...
+ $ micas_pct         : num  20.7 40.1 0 14.7 16.9 ...
+ $ plagioclase_pct   : num  30.66 39.58 29.05 8.24 24.51 ...
+ $ mafics_pct        : num  1.89 6.15 30.26 23.17 28.16 ...
+ $ other_minerals_pct: num  33.56 1.56 19.09 23.4 0 ...
+ $ SiO2_pct          : num  48.3 45.6 49.5 61.3 50.8 ...
+ $ K2O_pct           : num  8 8 3.12 5.48 7.72 ...
+ $ CaO_pct           : num  12.31 18.44 19.19 9.83 16.48 ...
+ $ MgO_pct           : num  0 1.61 9.81 6.1 9.02 ...
+ $ P2O5_pct          : num  2.52 3 1.34 1.2 2.11 ...
+ $ K_solubility_index: num  0.12 0.425 0.195 0 0 ...
+ $ PC1_score         : num  6 17.99 5.47 12.76 14.15 ...
+ $ PC2_score         : num  -0.66 13.36 4.46 -9.25 0.92 ...
+ $ ICM_index         : num  52.8 63 54.1 53.6 57.3 ...
+
+=== RESUMEN ESTADISTICO (summary) ===
+   sample_id      data_origin             mesh          mesh_325     
+ Min.   :   1.0   Length:2000        Min.   :100.0   Min.   :0.0000  
+ 1st Qu.: 500.8   Class :character   1st Qu.:100.0   1st Qu.:0.0000  
+ Median :1000.5   Mode  :character   Median :200.0   Median :0.0000  
+ Mean   :1000.5                      Mean   :206.4   Mean   :0.2975  
+ 3rd Qu.:1500.2                      3rd Qu.:325.0   3rd Qu.:1.0000  
+ Max.   :2000.0                      Max.   :325.0   Max.   :1.0000  
+   quartz_pct      micas_pct      plagioclase_pct   mafics_pct   
+ Min.   : 0.00   Min.   : 0.000   Min.   : 0.00   Min.   : 0.00  
+ 1st Qu.:14.97   1st Qu.: 8.005   1st Qu.:19.22   1st Qu.:12.31  
+ Median :24.50   Median :14.493   Median :28.43   Median :19.85  
+ Mean   :24.06   Mean   :14.311   Mean   :28.14   Mean   :19.48  
+ 3rd Qu.:32.75   3rd Qu.:20.145   3rd Qu.:37.14   3rd Qu.:26.79  
+ Max.   :70.00   Max.   :46.413   Max.   :70.00   Max.   :56.24  
+ other_minerals_pct    SiO2_pct        K2O_pct         CaO_pct       
+ Min.   : 0.00      Min.   :35.00   Min.   :0.000   Min.   : 0.2068  
+ 1st Qu.: 0.00      1st Qu.:47.19   1st Qu.:5.115   1st Qu.:13.4098  
+ Median :10.26      Median :51.87   Median :7.257   Median :17.4502  
+ Mean   :14.00      Mean   :51.95   Mean   :6.404   Mean   :16.0793  
+ 3rd Qu.:27.09      3rd Qu.:56.77   3rd Qu.:8.000   3rd Qu.:20.0000  
+ Max.   :70.91      Max.   :76.22   Max.   :8.000   Max.   :20.0000  
+    MgO_pct          P2O5_pct     K_solubility_index   PC1_score       
+ Min.   : 0.000   Min.   :0.000   Min.   :0.00000    Min.   :-28.5846  
+ 1st Qu.: 3.608   1st Qu.:1.641   1st Qu.:0.02145    1st Qu.:  0.2719  
+ Median : 5.938   Median :2.120   Median :0.09749    Median :  7.7374  
+ Mean   : 5.884   Mean   :2.085   Mean   :0.13575    Mean   :  8.2033  
+ 3rd Qu.: 8.092   3rd Qu.:2.648   3rd Qu.:0.22887    3rd Qu.: 16.5173  
+ Max.   :15.000   Max.   :3.000   Max.   :0.55779    Max.   : 46.3232  
+   PC2_score          ICM_index    
+ Min.   :-25.1442   Min.   :31.86  
+ 1st Qu.: -0.3405   1st Qu.:51.20  
+ Median :  5.6127   Median :55.74  
+ Mean   :  5.4580   Mean   :55.74  
+ 3rd Qu.: 11.4377   3rd Qu.:60.36  
+ Max.   : 37.2232   Max.   :76.03  
+
+=== VALORES FALTANTES POR VARIABLE ===
+         sample_id        data_origin               mesh           mesh_325 
+                 0                  0                  0                  0 
+        quartz_pct          micas_pct    plagioclase_pct         mafics_pct 
+                 0                  0                  0                  0 
+other_minerals_pct           SiO2_pct            K2O_pct            CaO_pct 
+                 0                  0                  0                  0 
+           MgO_pct           P2O5_pct K_solubility_index          PC1_score 
+                 0                  0                  0                  0 
+         PC2_score          ICM_index 
+                 0                  0 
+Total de valores faltantes: 0 
+
+=== GENERANDO HISTOGRAMAS ===
+Guardado: results/figures/r_fig01_histogramas.png
+
+=== CALCULANDO MATRIZ DE CORRELACION ===
+Dimensiones de la matriz de correlacion: 17 x 17 
+
+=== GENERANDO MAPA DE CORRELACION ===
+Guardado: results/figures/r_fig02_correlacion.png
+
+=== SCRIPT 01 COMPLETADO EXITOSAMENTE ===
+--- Fin de salida ---
+Fin: 2026-07-07 21:17:35
+Duracion: 1.22 segundos
+Estado: EXITOSO
+
+------------------------------------------------------------
+SCRIPT 2: Analisis de Componentes Principales (PCA)
+Archivo: scripts/r/02_pca.R
+Inicio: 2026-07-07 21:17:35
+
+--- Salida del script ---
+=== CARGANDO DATOS PARA PCA ===
+Muestras cargadas: 2000 
+Variables DRX utilizadas: quartz_pct, micas_pct, plagioclase_pct, mafics_pct, other_minerals_pct 
+
+=== EJECUTANDO PCA (prcomp, scale=TRUE) ===
+
+=== RESUMEN DEL PCA ===
+Importance of components:
+                         PC1    PC2    PC3    PC4       PC5
+Standard deviation     1.198 1.1329 1.0838 1.0521 3.803e-16
+Proportion of Variance 0.287 0.2567 0.2349 0.2214 0.000e+00
+Cumulative Proportion  0.287 0.5437 0.7786 1.0000 1.000e+00
+
+Varianza explicada por componente:
+[1] 28.70 25.67 23.49 22.14  0.00
+
+=== CARGAS (LOADINGS) ===
+                       PC1     PC2     PC3     PC4    PC5
+quartz_pct          0.2704 -0.7872 -0.2720 -0.1076 0.4707
+micas_pct           0.0621  0.1399 -0.1544  0.9222 0.3199
+plagioclase_pct     0.5511  0.5766 -0.1454 -0.3192 0.4908
+mafics_pct          0.0081 -0.0875  0.9175  0.0323 0.3865
+other_minerals_pct -0.7870  0.1434 -0.1980 -0.1874 0.5346
+Guardado: results/tables/r_tab01_pca_summary.txt
+
+=== GENERANDO SCREE PLOT ===
+Guardado: results/figures/r_fig03_scree.png
+
+=== GENERANDO BIPLOT ===
+Guardado: results/figures/r_fig04_biplot.png
+
+=== GENERANDO GRAFICO DE CONTRIBUCIONES ===
+Guardado: results/figures/r_fig05_contribuciones.png
+
+=== SCRIPT 02 COMPLETADO EXITOSAMENTE ===
+--- Fin de salida ---
+Fin: 2026-07-07 21:17:36
+Duracion: 1.31 segundos
+Estado: EXITOSO
+
+------------------------------------------------------------
+SCRIPT 3: Regresion Lineal Multiple
+Archivo: scripts/r/03_regresion.R
+Inicio: 2026-07-07 21:17:36
+
+--- Salida del script ---
+=== CARGANDO DATOS DE REMINERALIZACION ===
+Dimensiones: 1000 muestras x 9 variables
+Variables: ID_Muestra, Tipo_Roca, SiO2_pct, K2O_pct, CaO_pct, MgO_pct, Mineral_Predominante, Granulometria_Mesh, Solubilidad_Relativa 
+
+=== AJUSTANDO MODELO DE REGRESION LINEAL MULTIPLE ===
+Formula: Solubilidad_Relativa ~ SiO2_pct + K2O_pct + CaO_pct + MgO_pct + Granulometria_Mesh
+
+=== RESUMEN DEL MODELO ===
+
+Call:
+lm(formula = Solubilidad_Relativa ~ SiO2_pct + K2O_pct + CaO_pct + 
+    MgO_pct + Granulometria_Mesh, data = datos)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.063494 -0.025589 -0.000768  0.026203  0.077496 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(>|t|)    
+(Intercept)        -6.997e-02  1.825e-02  -3.835 0.000134 ***
+SiO2_pct            1.418e-04  2.075e-04   0.683 0.494589    
+K2O_pct             1.535e-03  1.107e-03   1.387 0.165777    
+CaO_pct             6.458e-04  7.811e-04   0.827 0.408558    
+MgO_pct            -1.321e-05  2.843e-04  -0.046 0.962945    
+Granulometria_Mesh  2.646e-03  1.141e-05 231.866  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.03333 on 994 degrees of freedom
+Multiple R-squared:  0.9819,	Adjusted R-squared:  0.9818 
+F-statistic: 1.076e+04 on 5 and 994 DF,  p-value: < 2.2e-16
+
+
+=== TABLA ANOVA ===
+Analysis of Variance Table
+
+Response: Solubilidad_Relativa
+                    Df Sum Sq Mean Sq    F value    Pr(>F)    
+SiO2_pct             1  0.007   0.007     6.2956  0.012262 *  
+K2O_pct              1  0.005   0.005     4.7837  0.028963 *  
+CaO_pct              1  0.005   0.005     4.1485  0.041935 *  
+MgO_pct              1  0.011   0.011    10.1412  0.001495 ** 
+Granulometria_Mesh   1 59.711  59.711 53761.7046 < 2.2e-16 ***
+Residuals          994  1.104   0.001                         
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+=== FACTOR DE INFLACION DE VARIANZA (VIF) ===
+          SiO2_pct            K2O_pct            CaO_pct            MgO_pct 
+            4.9941             7.5784             6.7611             3.9643 
+Granulometria_Mesh 
+            1.0007 
+Guardado: results/tables/r_tab02_regresion.txt
+Guardado: results/tables/r_tab03_vif.txt
+
+=== GENERANDO GRAFICO DE RESIDUALES ===
+Guardado: results/figures/r_fig06_residuales.png
+
+=== GENERANDO GRAFICO QQ ===
+Guardado: results/figures/r_fig07_qq.png
+
+=== SCRIPT 03 COMPLETADO EXITOSAMENTE ===
+--- Fin de salida ---
+Fin: 2026-07-07 21:17:37
+Duracion: 1.28 segundos
+Estado: EXITOSO
+
+------------------------------------------------------------
+SCRIPT 4: Analisis de Conglomerados (K-means)
+Archivo: scripts/r/04_cluster.R
+Inicio: 2026-07-07 21:17:37
+
+--- Salida del script ---
+ADVERTENCIA: Quick-TRANSfer stage steps exceeded maximum (= 100000)
+--- Fin de salida ---
+Fin: 2026-07-07 21:17:38
+Duracion: 0.06 segundos
+Estado: COMPLETADO (con advertencias)
+
+------------------------------------------------------------
+SCRIPT 5: Analisis Factorial
+Archivo: scripts/r/05_analisis_factorial.R
+Inicio: 2026-07-07 21:17:38
+
+--- Salida del script ---
+ADVERTENCIA: The estimated weights for the factor scores are probably incorrect.  Try a different factor score estimation method.
+--- Fin de salida ---
+Fin: 2026-07-07 21:17:38
+Duracion: 0.05 segundos
+Estado: COMPLETADO (con advertencias)
+
+============================================================
+RESUMEN DE EJECUCION
+Fecha de fin: 2026-07-07 21:17:38
+============================================================
+
+                     Script                               Descripcion
+ 01_analisis_exploratorio.R      Analisis Exploratorio de Datos (AED)
+                   02_pca.R Analisis de Componentes Principales (PCA)
+             03_regresion.R                 Regresion Lineal Multiple
+               04_cluster.R       Analisis de Conglomerados (K-means)
+    05_analisis_factorial.R                        Analisis Factorial
+                        Estado Duracion_seg
+                       EXITOSO         1.22
+                       EXITOSO         1.31
+                       EXITOSO         1.28
+ COMPLETADO (con advertencias)         0.06
+ COMPLETADO (con advertencias)         0.05
+
+--- VERIFICACION DE ARCHIVOS GENERADOS ---
+
+FIGURAS:
+  [OK] results/figures/r_fig01_histogramas.png (109695 bytes)
+  [OK] results/figures/r_fig02_correlacion.png (193135 bytes)
+  [OK] results/figures/r_fig03_scree.png (53132 bytes)
+  [OK] results/figures/r_fig04_biplot.png (287717 bytes)
+  [OK] results/figures/r_fig05_contribuciones.png (117125 bytes)
+  [OK] results/figures/r_fig06_residuales.png (114194 bytes)
+  [OK] results/figures/r_fig07_qq.png (82252 bytes)
+  [OK] results/figures/r_fig08_cluster.png (510199 bytes)
+  [OK] results/figures/r_fig09_silhouette.png (53526 bytes)
+  [OK] results/figures/r_fig10_factor_loadings.png (54068 bytes)
+
+TABLAS:
+  [OK] results/tables/r_tab01_pca_summary.txt (1661 bytes)
+  [OK] results/tables/r_tab02_regresion.txt (1921 bytes)
+  [OK] results/tables/r_tab03_vif.txt (657 bytes)
+  [OK] results/tables/r_tab04_centroides.txt (1545 bytes)
+  [OK] results/tables/r_tab05_factor_loadings.txt (2800 bytes)
+  [OK] results/tables/r_tab06_kmo.txt (655 bytes)
+
+Total figuras generadas: 10/10
+Total tablas generadas: 6/6
+
+=== TODOS LOS ARCHIVOS FUERON GENERADOS EXITOSAMENTE ===
+
+============================================================
+FIN DEL REGISTRO DE EJECUCION
+============================================================

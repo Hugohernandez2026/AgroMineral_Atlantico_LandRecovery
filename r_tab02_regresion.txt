@@ -1,0 +1,48 @@
+============================================================
+RESUMEN DEL MODELO DE REGRESION LINEAL MULTIPLE
+Proyecto: AgroMineral-PCA
+Fecha: 2026-07-07 21:17:36 
+============================================================
+
+Formula: Solubilidad_Relativa ~ SiO2_pct + K2O_pct + CaO_pct + MgO_pct + Granulometria_Mesh
+Muestras: 1000 
+
+--- Resumen del Modelo ---
+
+Call:
+lm(formula = Solubilidad_Relativa ~ SiO2_pct + K2O_pct + CaO_pct + 
+    MgO_pct + Granulometria_Mesh, data = datos)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.063494 -0.025589 -0.000768  0.026203  0.077496 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(>|t|)    
+(Intercept)        -6.997e-02  1.825e-02  -3.835 0.000134 ***
+SiO2_pct            1.418e-04  2.075e-04   0.683 0.494589    
+K2O_pct             1.535e-03  1.107e-03   1.387 0.165777    
+CaO_pct             6.458e-04  7.811e-04   0.827 0.408558    
+MgO_pct            -1.321e-05  2.843e-04  -0.046 0.962945    
+Granulometria_Mesh  2.646e-03  1.141e-05 231.866  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.03333 on 994 degrees of freedom
+Multiple R-squared:  0.9819,	Adjusted R-squared:  0.9818 
+F-statistic: 1.076e+04 on 5 and 994 DF,  p-value: < 2.2e-16
+
+
+--- Tabla ANOVA ---
+Analysis of Variance Table
+
+Response: Solubilidad_Relativa
+                    Df Sum Sq Mean Sq    F value    Pr(>F)    
+SiO2_pct             1  0.007   0.007     6.2956  0.012262 *  
+K2O_pct              1  0.005   0.005     4.7837  0.028963 *  
+CaO_pct              1  0.005   0.005     4.1485  0.041935 *  
+MgO_pct              1  0.011   0.011    10.1412  0.001495 ** 
+Granulometria_Mesh   1 59.711  59.711 53761.7046 < 2.2e-16 ***
+Residuals          994  1.104   0.001                         
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1

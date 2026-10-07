@@ -1,0 +1,89 @@
+======================================================================
+RESUMEN DE EJECUCIÓN - PIPELINE AGROMINERAL-PCA
+======================================================================
+
+Fecha de inicio: 2026-07-07 21:14:41
+Fecha de finalización: 2026-07-07 21:14:41
+Tiempo total de ejecución: 24.13 segundos
+
+----------------------------------------------------------------------
+ESTADO POR SCRIPT:
+----------------------------------------------------------------------
+
+  Script 01: Análisis Exploratorio de Datos
+    Descripción: Estadísticas descriptivas, histogramas, correlación, boxplots
+    Estado: EXITOSO
+    Tiempo: 5.07 segundos
+
+  Script 02: Análisis de Componentes Principales (PCA)
+    Descripción: PCA desde cero, biplot, scree plot, cargas, comparación
+    Estado: EXITOSO
+    Tiempo: 4.37 segundos
+
+  Script 03: Regresión Lineal Múltiple
+    Descripción: OLS, diagnóstico de residuos, Q-Q plot, análisis VIF
+    Estado: EXITOSO
+    Tiempo: 4.91 segundos
+
+  Script 04: Análisis de Conglomerados K-means
+    Descripción: Elbow, silueta, clustering k=3, perfiles de cluster
+    Estado: EXITOSO
+    Tiempo: 5.66 segundos
+
+  Script 05: Análisis Factorial
+    Descripción: KMO, Bartlett, factores Varimax, comunalidades, ICM
+    Estado: EXITOSO
+    Tiempo: 4.11 segundos
+
+----------------------------------------------------------------------
+ARCHIVOS GENERADOS:
+----------------------------------------------------------------------
+
+  Total de archivos: 38
+    - Figuras (PNG): 21
+    - Tablas (CSV):  12
+    - Textos (TXT):  5
+
+  DETALLE:
+    [Figura] fig01_histogramas.png (116.6 KB)
+    [Figura] fig02_correlacion.png (297.2 KB)
+    [Figura] fig03_boxplots_mesh.png (83.8 KB)
+    [Figura] fig04_scree_plot.png (88.2 KB)
+    [Figura] fig05_biplot_pca.png (444.4 KB)
+    [Figura] fig06_loading_matrix.png (78.9 KB)
+    [Figura] fig07_distribucion_residuales.png (188.8 KB)
+    [Figura] fig08_qq_plot.png (84.4 KB)
+    [Figura] fig09_elbow_silhouette.png (148.0 KB)
+    [Figura] fig10_cluster_scatter.png (409.0 KB)
+    [Figura] fig11_factor_loadings.png (111.9 KB)
+    [Figura] fig12_comunalidades.png (85.0 KB)
+    [Figura] r_fig01_histogramas.png (107.1 KB)
+    [Figura] r_fig02_correlacion.png (188.6 KB)
+    [Figura] r_fig03_scree.png (51.9 KB)
+    [Figura] r_fig04_biplot.png (281.0 KB)
+    [Figura] r_fig05_contribuciones.png (114.4 KB)
+    [Figura] r_fig06_residuales.png (111.5 KB)
+    [Figura] r_fig07_qq.png (80.3 KB)
+    [Figura] r_fig08_cluster.png (498.2 KB)
+    [Figura] r_fig09_silhouette.png (52.3 KB)
+    [Tabla] tab01_estadisticas_descriptivas.csv (1.9 KB)
+    [Tabla] tab02_matriz_correlacion.csv (4.0 KB)
+    [Tabla] tab03_autovalores_pca.csv (0.3 KB)
+    [Tabla] tab04_loadings_pca.csv (0.6 KB)
+    [Tabla] tab05_varianza_explicada.csv (0.3 KB)
+    [Tabla] tab06_regresion_resultados.csv (1.2 KB)
+    [Tabla] tab07_vif.csv (0.2 KB)
+    [Tabla] tab08_centroides_cluster.csv (0.4 KB)
+    [Tabla] tab09_perfil_cluster.csv (0.4 KB)
+    [Tabla] tab10_kmo_bartlett.csv (0.2 KB)
+    [Tabla] tab11_factor_loadings.csv (1.0 KB)
+    [Tabla] tab12_comunalidades.csv (0.4 KB)
+    [Texto] r_tab01_pca_summary.txt (1.6 KB)
+    [Texto] r_tab02_regresion.txt (1.9 KB)
+    [Texto] r_tab03_vif.txt (0.6 KB)
+    [Texto] r_tab04_centroides.txt (1.5 KB)
+    [Texto] r_tab06_kmo.txt (0.6 KB)
+
+======================================================================
+FIN DEL RESUMEN
+======================================================================
